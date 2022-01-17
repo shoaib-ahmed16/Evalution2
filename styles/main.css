@@ -1,0 +1,16 @@
+#container
+{
+    margin: 50px;
+    display: flex;
+    border: solid 5px rgb(128, 106, 150);
+}
+#sidebar
+{
+    width: 25%;
+    border: 1px solid red;
+}
+/* #main
+{
+    width: 74%;
+    border: 1px solid black; */
+/* } */

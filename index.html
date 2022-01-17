@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <!-- <link rel="stylesheet" href="/styles/main.css"> -->
+
+  </head>
+
+  <body>
+    <!-- header of news website will be import here -->
+    
+  </div>
+    <div id="container">
+      <div id="sidebar">
+
+        <!--DO NOT CHANGE THIS ID's-->
+
+
+      </div>
+
+      <div id="main">
+        <!--DO NOT CHANGE THIS ID's-->
+
+      </div>
+    </div>
+  </body>
+
+</html>
+<script type="module">
+
+  import navbar from "./components/navbar.js"
+
+  document.querySelector("body").innerHTML = navbar()
+
+  fetchnews()
+
+  async function fetchnews(){
+    //https://gnews.io/apikey=90675c20d05ef0f1acf2dfe359dae285 api with key
+  // API key =90675c20d05ef0f1acf2dfe359dae285
+    try
+    {
+      let response = await fetch (`https://gnews.io/api/v4/top-headlines?token=38de9c133a4c110647bc101878f866c0`)
+
+      let data = await response.json()
+
+      console.log("data:",data)
+      let {articles} =data
+      appendTOpHeadlines(articles)
+    }
+    catch (error)
+    {
+      console.log("error:",error)
+    }
+  }
+
+
+  function appendTOpHeadlines(articles)
+  {
+    
+    articles.forEach( function (elem,index){
+        console.log(elem.image)
+      // console.log(elem.content)
+        let div1 =document.createElement("div")
+            div1.innerHTML =elem.description
+            // console.log("title",elem.description)
+        let p1 =document.createElement("p")
+            p1.innerHTML =elem.content;
+            // console.log("content",elem.content)
+        
+        let img1 =document.createElement("img")
+            img1.src = elem.image;
+            // console.log("image",elem.image)
+        
+        let app_div =document.createElement("div")
+            app-div.setAttribute("onclick","openInnews(index)")
+        app_div.append(div1,p1)
+
+        let div_slid =document.createElement("div")
+        div_slid.setAttribute("onclick","openInnews(index)")
+        div_slid.append(img1)
+
+        document.querySelector("#sidebar").append(div_slid)
+        document.querySelector("#main").append(app_div)
+    })
+  }
+  function openInnews(data){
+
+    localStorage.setItem("news",JSON.stringify(data))
+    window.location.href="/news.html"
+  }
+</script>

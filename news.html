@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/navbar.css">
+
+  </head>
+
+  <body>
+    <!--DO NOT CHANGE THIS ID's-->
+
+    <div id="container">
+      <div id="sidebar">
+        <!--add your sidebar component here-->
+      </div>
+
+      <div id="main">
+        <div id="headline">
+          <!--add headline here-->
+        </div>
+        <img id="img" src="" alt="" />
+        <!--show news image here-->
+
+
+        <div id="content">
+          <!--add news content here-->
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
+<script type="module">
+
+  import navbar from "./components/navbar.js"
+
+  document.querySelector("body").innerHTML = navbar()
+
+  //https://gnews.io/apikey=90675c20d05ef0f1acf2dfe359dae285 api with key
+  // API key =90675c20d05ef0f1acf2dfe359dae285
+
+  let dataindex =JSON.parse(localStorage.getItem("news"))
+
+  fetchnews()
+
+  async function fetchnews(){
+    //https://gnews.io/apikey=90675c20d05ef0f1acf2dfe359dae285 api with key
+  // API key =90675c20d05ef0f1acf2dfe359dae285
+    try
+    {
+      let response = await fetch (`https://gnews.io/api/v4/top-headlines?token=38de9c133a4c110647bc101878f866c0`)
+
+      let data = await response.json()
+
+      console.log("data:",data)
+      let {articles} =data
+      appendTOpHeadlines(articles[dataindex])
+    }
+    catch (error)
+    {
+      console.log("error:",error)
+    }
+  }
+
+
+  function appendTOpHeadlines(data)
+  {
+    document.getElementById("headline").innerHTML=data.description;
+    document.getElementById("content").innerHTML=data.content;        
+    document.getElementById("img").src=data.image;        
+  }
+</script>
